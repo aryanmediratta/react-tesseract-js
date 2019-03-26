@@ -19,18 +19,13 @@ class App extends Component {
        .progress(function  (p) { console.log('progress', p)    })
        .then(function (result){
         console.log('result', result.text) 
-          return(
+        return(
             <div>
             <p>The result is</p>              
             <p>{result.text}</p>
             </div>
-          )
-      })
-
-      return(
-      <h2>Check console for output </h2>
-      )
-
+        )
+    })
   }
 
   imageChange = (e) => {
@@ -75,6 +70,8 @@ class App extends Component {
         <div className="imgPreview">
           {$imageViewer}
         </div>
+
+        <p>(Check console for progress and ouput)</p>
 
       </div>
     );
