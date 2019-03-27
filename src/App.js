@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 var Tesseract = window.Tesseract;
+var resultlol = '';
 
 class App extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class App extends Component {
     this.state = {
       image: '',
       imageViewer: '',
+      imgResult: ''
     }
   }
 
@@ -18,7 +20,8 @@ class App extends Component {
     Tesseract.recognize(myImg)
        .progress(function  (p) { console.log('progress', p)    })
        .then(function (result){
-        console.log('result', result.text) 
+        //console.log('result is', result.text) 
+        resultlol = result.text;
         return(
             <div>
             <p>The result is</p>              
@@ -26,6 +29,10 @@ class App extends Component {
             </div>
         )
     })
+    this.setState({
+      imgResult: resultlol
+    })
+    console.log('img result is', this.state.imgResult)
   }
 
   imageChange = (e) => {
@@ -65,6 +72,15 @@ class App extends Component {
             Upload Image
           </button>
 
+          <br/>
+          <br/>
+
+          <button className="submitButton"
+            type="submit"
+            onClick={(e) => this.handleSubmit(e)}>
+            Show output(approx after 10 seconds of uploading image.)
+          </button>
+
         </form>
 
         <div className="imgPreview">
@@ -72,6 +88,9 @@ class App extends Component {
         </div>
 
         <p>(Check console for progress and ouput)</p>
+
+        <p>The result is</p>              
+        <p>{this.state.imgResult}</p>
 
       </div>
     );
