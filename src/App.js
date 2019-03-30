@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+import brace from "brace";
+import AceEditor from "react-ace";
+
+import "brace/mode/java";
+import "brace/theme/github";
+
 var Tesseract = window.Tesseract;
 var resultlol = '';
 
@@ -9,8 +15,16 @@ class App extends Component {
     this.state = {
       image: '',
       imageViewer: '',
-      imgResult: ''
+      imgResult: '',
+      imgNothing: ''
     }
+  }
+
+  showOutput = () => {
+    this.setState({
+      imgNothing : 'hahaha'
+    })
+    console.log('Hehehe')
   }
 
   handleSubmit = (e) => {
@@ -20,17 +34,12 @@ class App extends Component {
     Tesseract.recognize(myImg)
        .progress(function  (p) { console.log('progress', p)    })
        .then(function (result){
-        //console.log('result is', result.text) 
+        console.log('result is', result.text) 
         resultlol = result.text;
-        return(
-            <div>
-            <p>The result is</p>              
-            <p>{result.text}</p>
-            </div>
-        )
     })
     this.setState({
-      imgResult: resultlol
+      imgResult: resultlol,
+      imgNothing: ''
     })
     console.log('img result is', this.state.imgResult)
   }
@@ -77,7 +86,7 @@ class App extends Component {
 
           <button className="submitButton"
             type="submit"
-            onClick={(e) => this.handleSubmit(e)}>
+            onClick={() => this.showOutput()}>
             Show output(approx after 10 seconds of uploading image.)
           </button>
 
@@ -87,11 +96,14 @@ class App extends Component {
           {$imageViewer}
         </div>
 
-        <p>(Check console for progress and ouput)</p>
+        <p>(Check console for progress and output)</p>
 
-        <p>The result is</p>              
-        <p>{this.state.imgResult}</p>
-
+        <h2>Result</h2>
+        <AceEditor
+        theme="github"
+        name="blah2"
+        value = {this.state.imgResult}
+        />
       </div>
     );
   }

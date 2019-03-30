@@ -5,6 +5,7 @@
   "dependencies": {
     "firebase-tools": "^4.1.1",
     "react": "^16.8.5",
+    "react-ace": "^6.4.0",
     "react-dom": "^16.8.5",
     "react-scripts": "2.1.8",
     "tesseract.js": "^1.0.14"
